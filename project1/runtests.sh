@@ -154,6 +154,10 @@ curl -X PUT \
 status 'GET all reviews of a business'
 curl http://localhost:3000/businesses/0/reviews
 
+status 'BAD GET all reviews of a nonexistant business'
+curl http://localhost:3000/businesses/999/reviews
+
+
 status 'GET a particular reviews of a business'
 curl http://localhost:3000/businesses/0/reviews/0
 
@@ -169,6 +173,15 @@ curl -X POST \
         "written_review": "this place sucked"}' \
     http://localhost:3000/businesses/0/reviews
 
+status 'BAD POST review with wrong data'
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"user": "jack",
+        "stars": "5", 
+        "dollar_sign": "5", 
+        "written_review": "this place sucked",
+        "junk": "IM JUNK"}' \
+    http://localhost:3000/businesses/0/reviews
 
 status 'PUT review stars'
 curl -X PUT \
@@ -176,11 +189,35 @@ curl -X PUT \
     -d '{"stars": "5"}' \
     http://localhost:3000/businesses/0/reviews/0/stars
 
-status 'PUT review stars'
+status 'BAD PUT review stars on nonexistant review'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"stars": "5"}' \
+    http://localhost:3000/businesses/0/reviews/999/stars
+
+status 'PUT review dollar_sign'
 curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"dollar_sign": "1"}' \
     http://localhost:3000/businesses/0/reviews/0/dollar_sign
+
+status 'BAD PUT review dollar_sign on nonexistant review'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"dollar_sign": "1"}' \
+    http://localhost:3000/businesses/0/reviews/999/dollar_sign
+
+status 'PUT review written_review'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"written_review": "I am a review"}' \
+    http://localhost:3000/businesses/0/reviews/0/written_review
+
+status 'BAD PUT review written_review with nonexistant review'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"written_review": "I am a review"}' \
+    http://localhost:3000/businesses/0/reviews/999/written_review
 
 
 status 'DELETE newly created review'
@@ -202,6 +239,9 @@ curl http://localhost:3000/businesses/999/photos
 status 'GET all photos for a businesss'
 curl http://localhost:3000/businesses/0/photos
 
+status 'BAD GET all photos for a businesss that doesnt exist'
+curl http://localhost:3000/businesses/999/photos
+
 status 'POST new image'
 curl -X POST \
     -H 'Content-Type: application/json' \
@@ -221,7 +261,13 @@ status 'PUT edit caption'
 curl -X PUT \
     -H 'Content-Type: application/json' \
     -d '{"caption": "strange place this is"}' \
-    http://localhost:3000/businesses/0/photos/0
+    http://localhost:3000/businesses/0/photos/0/caption
+
+status 'BAD PUT edit caption on nonexistant photo'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"caption": "strange place this is"}' \
+    http://localhost:3000/businesses/0/photos/999/caption
 
 status 'DELETE newly created photo'
 curl -X "DELETE" http://localhost:3000/businesses/0/photos/2

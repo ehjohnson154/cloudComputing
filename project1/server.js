@@ -252,10 +252,6 @@ function getReviewInfo(businessID, reviewID, info, res){
 }
 
 function putReviewInfo(businessID, reviewID, info, stuff, res){
-    console.log("in PUT reviews")
-    console.log(businesses[businessID]["reviews"][reviewID][info])
-    console.log(stuff[info])
-    var businessID = parseInt(req.params.businessID);
     if (businesses[businessID]["reviews"][reviewID]) {
         businesses[businessID]["reviews"][reviewID][info] = stuff[info]
         // res.status(200).json(businesses[businessID]["reviews"][req.params.reviewID][info]);
@@ -534,9 +530,9 @@ app.post('/businesses/:businessID/reviews/', function (req, res, next) {
 app.get('/businesses/:businessID/reviews/:reviewID/stars', function (req, res, next) {
     getReviewInfo(parseInt(req.params.businessID), 'stars', res)
 });
-app.put('//businesses/:businessID/reviews/:reviewID/stars', function (req, res, next) {
+app.put('/businesses/:businessID/reviews/:reviewID/stars', function (req, res, next) {
     console.log("in first put statement")
-    putReviewInfo(parseInt(req.params.businessID), 'stars', req.body, res)
+    putReviewInfo(parseInt(req.params.businessID), req.params.reviewID, 'stars', req.body, res)
 });
 
 // app.put('/businesses/:businessID/information/address', function (req, res, next) {
@@ -547,15 +543,15 @@ app.put('//businesses/:businessID/reviews/:reviewID/stars', function (req, res, 
 app.get('/businesses/:businessID/reviews/:reviewID/dollar_sign', function (req, res, next) {
     getReviewInfo(parseInt(req.params.businessID), 'dollar_sign', res)
 });
-app.put('//businesses/:businessID/reviews/:reviewID/dollar_sign', function (req, res, next) {
-    putReviewInfo(parseInt(req.params.businessID), 'dollar_sign', req.body, res)
+app.put('/businesses/:businessID/reviews/:reviewID/dollar_sign', function (req, res, next) {
+    putReviewInfo(parseInt(req.params.businessID), req.params.reviewID, 'dollar_sign', req.body, res)
 });
 
 app.get('/businesses/:businessID/reviews/:reviewID/written_review', function (req, res, next) {
     getReviewInfo(parseInt(req.params.businessID), 'written_review', res)
 });
 app.put('/businesses/:businessID/reviews/:reviewID/written_review', function (req, res, next) {
-    putReviewInfo(parseInt(req.params.businessID), 'written_review', req.body, res)
+    putReviewInfo(parseInt(req.params.businessID), req.params.reviewID, 'written_review', req.body, res)
 });
 
 //             DELETE /Business/{id}/Review/{user_id}/{id}
