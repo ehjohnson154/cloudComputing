@@ -229,7 +229,12 @@ function putInfo(businessID, info, stuff, res){
         //console.log(businesses[businessID])
         //return businesses[businessID]
         businesses[businessID]["information"][info] = stuff[info]
-        res.status(200).json(businesses[businessID]["information"][info]);
+        res.status(200).json({
+            links: {
+                stuff: '/businesses/' + businessID + '/information/' + info
+            }
+        });
+        //res.status(200).json(businesses[businessID]["information"][info]);
     } else {
         console.log("in failure")
         return404(res); //do I need to assign a function called next? or will app.use work?
@@ -253,7 +258,12 @@ function putReviewInfo(businessID, reviewID, info, stuff, res){
     var businessID = parseInt(req.params.businessID);
     if (businesses[businessID]["reviews"][reviewID]) {
         businesses[businessID]["reviews"][reviewID][info] = stuff[info]
-        res.status(200).json(businesses[businessID]["reviews"][req.params.reviewID][info]);
+        // res.status(200).json(businesses[businessID]["reviews"][req.params.reviewID][info]);
+        res.status(200).json({
+            links: {
+                stuff: '/businesses/' + businessID + '/reviews/' + info
+            }
+        });
     } else {
         return404(res); //do I need to assign a function called next? or will app.use work?
     }
@@ -599,20 +609,20 @@ app.get('/businesses/:businessID/photos/:photoID', function (req, res, next) {
 
 //             DEL /Business/{id}/photo/{id} 
 
-app.put('/businesses/:businessID/photos/:photoID/caption', function (req, res, next) {
-    console.log("in PUT photo")
-    var businessID = parseInt(req.params.businessID);
+// app.put('/businesses/:businessID/photos/:photoID/caption', function (req, res, next) {
+//     console.log("in PUT photo")
+//     var businessID = parseInt(req.params.businessID);
 
-    if (businesses[businessID]["photos"] && jsonValidation(req.body, review_required, review_optional))
-        {
-        businesses[businessID]["photos"][req.params.reviewID] = req.body;
-        res.status(200).json(businesses[businessID]["photos"][req.params.photoID]);
-    }
-    else {
-        return404(res)
-        };
-    console.log("put photo");
-});
+//     if (businesses[businessID]["photos"] && jsonValidation(req.body, review_required, review_optional))
+//         {
+//         businesses[businessID]["photos"][req.params.reviewID] = req.body;
+//         res.status(200).json(businesses[businessID]["photos"][req.params.photoID]);
+//     }
+//     else {
+//         return404(res)
+//         };
+//     console.log("put photo");
+// });
 
 app.put('/businesses/:businessID/photos/:photoID/caption', function (req, res, next) {
     console.log("in PUT photo")
@@ -621,7 +631,12 @@ app.put('/businesses/:businessID/photos/:photoID/caption', function (req, res, n
     if (businesses[businessID]["photos"][req.params.photoID])
         {
         businesses[businessID]["photos"][req.params.photoID]["caption"] = req.body["caption"];
-        res.status(200).json(businesses[businessID]["photos"][req.params.photoID]);
+        // res.status(200).json(businesses[businessID]["photos"][req.params.photoID]);
+        res.status(200).json({
+            links: {
+                stuff: '/businesses/' + businessID + '/photos/' + req.params.photoID + '/caption'
+            }
+        });
     }
     else {
         return404(res)

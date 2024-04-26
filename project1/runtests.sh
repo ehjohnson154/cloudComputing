@@ -90,6 +90,50 @@ curl -X PUT \
     -d '{"name": "strange place"}' \
     http://localhost:3000/businesses/0/information/name
 
+status 'PUT business-address. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"address": "strange place"}' \
+    http://localhost:3000/businesses/0/information/address
+
+status 'PUT business-state. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"state": "strange place"}' \
+    http://localhost:3000/businesses/0/information/state
+
+status 'PUT business-zip_code. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"zip_code": "strange place"}' \
+    http://localhost:3000/businesses/0/information/zip_code
+
+status 'PUT business-category. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"category": "strange place"}' \
+    http://localhost:3000/businesses/0/information/category
+
+status 'PUT business-subcategories. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"subcategories": ["strange place"]}' \
+    http://localhost:3000/businesses/0/information/subcategories
+
+status 'PUT business-email. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"email": "strange place"}' \
+    http://localhost:3000/businesses/0/information/email
+
+status 'PUT business-website. All businesses follow same function'
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"website": "strange place"}' \
+    http://localhost:3000/businesses/0/information/website
+
+
+
 status 'BAD PUT business-name of nonexistant businesss. All businesses follow same function.'
 curl -X PUT \
     -H 'Content-Type: application/json' \
