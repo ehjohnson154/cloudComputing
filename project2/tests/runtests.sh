@@ -20,30 +20,19 @@ curl http://localhost:3000/businesses/1
 status 'GET business-by-id with false ID should return failure'
 curl http://localhost:3000/businesses/9999
 
-
-  ownerid: { required: true },
-  name: { required: true },
-  address: { required: true },
-  city: { required: true },
-  state: { required: true },
-  zip: { required: true },
-  phone: { required: true },
-  category: { required: true },
-  subcategory: { required: true },
-  website: { required: false },
-  email: { required: false }
-
 status 'POST new business return success'
 curl -X POST \
     -H 'Content-Type: application/json' \
-    -d '{"name": "Strange place", 
+    -d '{"ownerid": "1",
+    "name": "Strange place", 
     "address": "1111 N street ", 
-    "city": "bend", "state": "or", 
-    "zip_code": "97703", 
+    "city": "bend", 
+    "state": "or", 
+    "zip": "97703", 
     "phone": "111-1111-111", 
     "category": "restraunt", 
-    "subcategories": ["pizza", "italian"]}' \
-    http://localhost:8000/businesses
+    "subcategory": ["pizza", "italian"]}' \
+    http://localhost:8000/businesses/
 
 
 status 'BAD POST attempt return failure'
@@ -58,6 +47,20 @@ curl -X POST \
     "subcategories": ["pizza", "italian"],
     "BADTHING": "AAAAA"}' \
     http://localhost:3000/businesses
+
+
+curl -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"ownerid": "1",
+    "name": "WILD place", 
+    "address": "1111 N street ", 
+    "city": "bend", 
+    "state": "or", 
+    "zip": "97703", 
+    "phone": "111-1111-111", 
+    "category": "restraunt", 
+    "subcategory": ["pizza", "italian"]}' \
+    http://localhost:8000/businesses/1
 
 status 'DELETE newly created businness'
 curl -X "DELETE" http://localhost:3000/businesses/2  
@@ -255,12 +258,19 @@ curl http://localhost:3000/businesses/0/photos
 status 'BAD GET all photos for a businesss that doesnt exist'
 curl http://localhost:3000/businesses/999/photos
 
+# const photoSchema = {
+#   userid: { required: true },
+#   businessid: { required: true },
+#   caption: { required: false }
+# };
+
 status 'POST new image'
 curl -X POST \
     -H 'Content-Type: application/json' \
-    -d '{"image": ";_;",
-        "caption": "so sad"}' \
-    http://localhost:3000/businesses/0/photos
+    -d '{"userid": "1",
+        "businessid": "1",
+        "caption": "this is a test"}' \
+    http://localhost:8000/photos/
 
 status 'BAD POST new image'
 curl -X POST \

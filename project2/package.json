@@ -1,0 +1,29 @@
+{
+  "name": "template-assignment-2",
+  "version": "1.0.0",
+  "description": "A small business review API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-cs493-sp22/template-assignment-2.git"
+  },
+  "author": "Hess <hessro@oregonstate.edu>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/osu-cs493-sp22/template-assignment-2/issues"
+  },
+  "homepage": "https://github.com/osu-cs493-sp22/template-assignment-2#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^8.3.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
