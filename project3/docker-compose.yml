@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  api:
+    depends_on:
+      database:
+        condition: service_healthy
+    build: . #building this vs using the mongo docker
+    environment:
+      DATABASE_PASSWORD: "hunter2"
+      DATABASE_USER: "root"
+      DATABASE_HOST: "database" #set to the name rather than ip due to docker compose networkd
+    # dockerfile: Dockerfile #is default?
+    ports:
+      - "8000:8000"
+  database:
+    image: mongo
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet #could also put database
+      timeout: 2s
+      retries: 10
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "hunter2"
+
+# docker run -d --name mongo-server --network mongo-net -p "27017:27017" -e 
+# "MONGO_INITDB_ROOT_USERNAME=root" -e 
+# "MONGO_INITDB_ROOT_PASSWORD=hunter2" mongo:latest

@@ -8,8 +8,8 @@ main().catch(err => console.log(err)); //probably shouldn't be main?
 
 async function main() { //probably shouldn't be main?
     //await mongoose.connect('mongodb://127.0.0.1:27017/test');
-
     await mongoose.connect('mongodb://root:hunter2@localhost:27017');
+    //await mongoose.connect(`mongodb://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:27017`); //Enviroment Variables
 }
 
 const mongooseBusinessSchema = new mongoose.Schema({
