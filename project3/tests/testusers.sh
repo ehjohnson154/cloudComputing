@@ -24,9 +24,8 @@ status() {
 status 'POST new business return success'
 curl -X POST \
     -H 'Content-Type: application/json' \
-    -d '{"email": "jon@jon.com",
-    "password": "jon", 
-    "admin": False }' \
+    -d '{"email": "jon3@jon.com",
+    "password": "jon"}' \
     http://localhost:8000/users/
 
 # cat curl_output
